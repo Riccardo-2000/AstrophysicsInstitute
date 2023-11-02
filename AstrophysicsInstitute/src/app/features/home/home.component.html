@@ -1,0 +1,94 @@
+<div class="container w-75 mw-100 h-100 bg-white overflow-hidden">
+    <div class="textContainer bg-white position-relative" [ngClass]="optionSelected=='' ? 'initial' : 'end'">
+        <h4 class="text mb-3 position-relative">SELEZIONA UN CORPO CELESTE</h4>
+        <select [(ngModel)]="optionSelected" class="form-control p-2">
+            <option selected disabled [value]="">Seleziona il corpo celeste</option>
+            <option *ngFor="let option of options| keyvalue" [value]="option.key">{{ option.key }}</option>
+        </select>
+    </div>
+    <form *ngIf="optionSelected" [formGroup]="feedform" (onchange)="resetForm()">
+        <div class="form-row">
+            <div *ngIf="options[optionSelected][0]" class="input-data">
+                <input class="form-control" formControlName="datetime" type="datetime-local" name="datetime">
+                <div [ngClass]="(submitted && checkFormError()['datetime'].errors!=undefined) ? 'error' : ''"
+                    class="underline">
+                </div>
+                <label for="datetime">datetime (UTC)</label>
+            </div>
+            <div *ngIf="options[optionSelected][1]" class="input-data">
+                <input class="form-control" formControlName="hour_angle" type="number" name="hour_angle">
+                <div [ngClass]="(submitted && checkFormError()['hour_angle'].errors) ? 'error' : ''" class="underline">
+                </div>
+                <label for="hour_angle">angolo orario (h)</label>
+            </div>
+            <div *ngIf="options[optionSelected][2]" class="input-data">
+                <input class="form-control" formControlName="declination" type="number" name="declination">
+                <div [ngClass]="(submitted && checkFormError()['declination'].errors) ? 'error' : ''" class="underline">
+                </div>
+                <label for="declination">declinazione (°)</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div *ngIf="options[optionSelected][3]" class="input-data">
+                <input class="form-control" formControlName="temperature" type="number" name="temperature">
+                <div [ngClass]="(submitted && checkFormError()['temperature'].errors) ? 'error' : ''" class="underline">
+                </div>
+                <label for="temperature">temperatura (K)</label>
+            </div>
+            <div *ngIf="options[optionSelected][4]" class="input-data">
+                <input class="form-control" formControlName="mass" type="number" name="mass">
+                <div [ngClass]="(submitted && checkFormError()['mass'].errors) ? 'error' : ''" class="underline"></div>
+                <label for="mass">massa (M⊙)</label>
+            </div>
+            <div *ngIf="options[optionSelected][5]" class="input-data">
+                <input class="form-control" formControlName="radius" type="number" name="radius">
+                <div [ngClass]="(submitted && checkFormError()['radius'].errors) ? 'error' : ''" class="underline">
+                </div>
+                <label for="radius">raggio (R⊙)</label>
+            </div>
+            <div *ngIf="options[optionSelected][6]" class="input-data">
+                <input class="form-control" formControlName="harvard_class" type="number" name="harvard_class">
+                <div [ngClass]="(submitted && checkFormError()['harvard_class'].errors) ? 'error' : ''"
+                    class="underline"></div>
+                <label for="harvard_class">Classe Harvard</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div *ngIf="options[optionSelected][7]" class="input-data">
+                <input class="form-control" formControlName="orbital_inclination" type="number"
+                    name="orbital_inclination">
+                <div [ngClass]="(submitted && checkFormError()['orbital_inclination'].errors) ? 'error' : ''"
+                    class="underline"></div>
+                <label for="orbital_inclination">inclinazione orbitale</label>
+            </div>
+            <div *ngIf="options[optionSelected][8]" class="input-data">
+                <input class="form-control" formControlName="albedo" type="number" name="albedo">
+                <div [ngClass]="(submitted && checkFormError()['albedo'].errors) ? 'error' : ''" class="underline">
+                </div>
+                <label for="albedo">albedo(%)</label>
+            </div>
+            <div *ngIf="options[optionSelected][9]" class="input-data">
+                <input class="form-control" formControlName="distance" type="number" name="distance">
+                <div [ngClass]="(submitted && checkFormError()['distance'].errors) ? 'error' : ''" class="underline">
+                </div>
+                <label for="distance">distanza (UA)</label>
+            </div>
+            <div *ngIf="options[optionSelected][10]" class="text-center">
+                <label class="checkboxLabel" for="solar_system">sistema solare</label>
+                <input formControlName="solar_system" type="checkbox" name="solar_system">
+            </div>
+
+        </div>
+        <div class="text-center">
+            <button [disabled]="!feedform.valid" class="btn px-3 py-1" [ngClass]="feedform.valid ? 'btn-primary' : ''"
+                type="button" (click)="send()">Invia</button>
+        </div>
+
+    </form>
+</div>
+
+<div *ngIf="showModal" class="position-absolute w-100 h-100 confirmation" (click)="showModal=false">
+    <div class="confirmation bg-white shadow-lg p-5">
+        {{message}}
+    </div>
+</div>
