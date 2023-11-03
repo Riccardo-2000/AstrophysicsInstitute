@@ -7,13 +7,15 @@ import { HomeComponent } from './features/home/home.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './modal/alert/alert.component';
+import { MonitoringComponent } from './features/monitoring/monitoring.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AlertComponent
+    AlertComponent,
+    MonitoringComponent
   ],
   imports: [
     BrowserModule,

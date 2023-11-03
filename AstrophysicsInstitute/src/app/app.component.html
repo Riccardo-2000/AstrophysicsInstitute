@@ -1,8 +1,17 @@
+<div class="position-relative h-100">
 
-<div class="position-relative h-100" >
-  
   <router-outlet></router-outlet>
+  <div class="d-flex justify-content-center gap-2 position-fixed start-0 end-0 bottom-0">
+    <a href="javascript:void(0)" routerLink="/home" routerLinkActive="active">
+      <div class="p-4 bg-white border">
+        <i class="fa fa-home" aria-hidden="true"></i>
+      </div>
+    </a>
+    <a href="javascript:void(0)" routerLink="/monitoring" routerLinkActive="active">
+      <div class="p-4 bg-white border">
+        <i class="fas fa-chart-bar"></i>
+      </div>
+    </a>
+  </div>
 
 </div>
-
-

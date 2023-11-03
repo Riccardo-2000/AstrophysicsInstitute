@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -12,17 +13,11 @@ export class HomeComponent implements OnInit {
   showModal:boolean = false
   message:string = ''
 
-  options = {
-    'pianeta': [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1] ,
-    'stella': [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1] ,
-    'asteroide': [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1] ,
-    'meteora': [1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0,] ,
-    'U.F.O': [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0] 
-  }
-
+  options:any = {}
   optionSelected:string=''
 
   feedform: FormGroup = this.fb.group({
+    type: [''],
     datetime:  ['', [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/)]],
     hour_angle:  ['',[Validators.required, Validators.min(0), Validators.max(24)]],
     declination :  ['',[Validators.required, Validators.min(0), Validators.max(300000)]],
@@ -36,7 +31,7 @@ export class HomeComponent implements OnInit {
     solar_system :  ['',[Validators.min(0), Validators.max(1)]]
   })
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private dataService: DataService) {}
 
   checkFormError(){
     return this.feedform.controls
@@ -53,11 +48,14 @@ export class HomeComponent implements OnInit {
   }
 
   send(){
+    this.feedform.controls['type'].setValue(this.optionSelected)
     this.submitted=true
     if(this.feedform.get('solar_system').value === true &&  this.feedform.get('distance').value>130){
       this.message="La distanza dal sole è maggiore di 130 UA, il campo sistema solare non può essere selezionata"
       this.feedform.controls['solar_system'].setValue(false)
     }else{
+      this.dataService.addData(this.feedform.value)
+
       this.message="Dati inviati correttamente"
 
       this.submitted=false
@@ -67,6 +65,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.options = this.dataService.getOptions()
   }
 
 }
