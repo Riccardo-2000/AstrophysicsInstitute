@@ -32,8 +32,8 @@
                 <td>{{ item.distance }}</td>
                 <td>{{ item.solar_system }}</td>
                 <td>
-                    <div class="d-flex jusify-content-around align-items-center gap-3">
-                        <i class="fa fa-edit" aria-hidden="true" (click)="selectData(item, i)" title="Modifica"></i>
+                    <div [ngClass]="!checkid(item.idUser) ? 'd-none' : '' " class="d-flex jusify-content-around align-items-center gap-3">
+                        <i  class="fa fa-edit" aria-hidden="true" (click)="selectData(item, i)" title="Modifica"></i>
                         <i class="fas fa-trash-alt" (click)="deleteData(i)" title="Elimina"></i>
                     </div>
                 </td>
@@ -75,30 +75,30 @@
                         <input class="form-control form-control-sm" [(ngModel)]="selectedData.item.declination">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" [disabled]="options[selectedData.item.type][3]===0"
+                        <input class="form-control form-control-sm" [disabled]="options[selectedData.item.type].value[3]===0"
                             [(ngModel)]="selectedData.item.temperature" type="number">
                     </td>
-                    <td><input class="form-control form-control-sm" [disabled]="options[selectedData.item.type][4]===0"
+                    <td><input class="form-control form-control-sm" [disabled]="options[selectedData.item.type].value[4]===0"
                             [(ngModel)]="selectedData.item.mass" type="number"></td>
-                    <td><input class="form-control form-control-sm" [disabled]="options[selectedData.item.type][5]===0"
+                    <td><input class="form-control form-control-sm" [disabled]="options[selectedData.item.type].value[5]===0"
                             [(ngModel)]="selectedData.item.radius" type="number"></td>
-                    <td><input class="form-control form-control-sm" [disabled]="options[selectedData.item.type][6]===0"
+                    <td><input class="form-control form-control-sm" [disabled]="options[selectedData.item.type].value[6]===0"
                             [(ngModel)]="selectedData.item.harvard_class" type="number">
                     </td>
-                    <td><input class="form-control form-control-sm" [disabled]="options[selectedData.item.type][7]===0"
+                    <td><input class="form-control form-control-sm" [disabled]="options[selectedData.item.type].value[7]===0"
                             [(ngModel)]="selectedData.item.orbital_inclination" type="number">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" [disabled]="options[selectedData.item.type][8]===0"
+                        <input class="form-control form-control-sm" [disabled]="options[selectedData.item.type].value[8]===0"
                             [(ngModel)]="selectedData.item.albedo" type="number">
                     </td>
                     <td>
-                        <input class="form-control form-control-sm" [disabled]="options[selectedData.item.type][9]===0"
+                        <input class="form-control form-control-sm" [disabled]="options[selectedData.item.type].value[9]===0"
                             [(ngModel)]="selectedData.item.distance" type="number">
                     </td>
                     <td class="position-relative text-center" style="vertical-align: middle;">
                         <div>
-                            <input [disabled]="options[selectedData.item.type][10]===0"
+                            <input [disabled]="options[selectedData.item.type].value[10]===0"
                                 [(ngModel)]="selectedData.item.solar_system" type="checkbox">
                         </div>
                     </td>

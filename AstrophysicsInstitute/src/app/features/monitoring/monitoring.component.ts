@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -13,7 +14,12 @@ export class MonitoringComponent implements OnInit {
 
   options:any = {}
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private authService:AuthService) {}
+
+  checkid(id:number){
+    console.log(id , this.authService.getIdAuthenticator())
+    return id === this.authService.getIdAuthenticator()
+  }
 
 
   selectData(item: any, i:number) {
@@ -39,10 +45,10 @@ export class MonitoringComponent implements OnInit {
   ngOnInit() {
     this.dataService.data$.subscribe((data) => {
       this.data = data;
-      console.log(data)
     });
 
     this.options = this.dataService.getOptions()
+    console.log(this.options)
   }
 
 }

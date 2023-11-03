@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './features/home/home.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AlertComponent } from './modal/alert/alert.component';
 import { MonitoringComponent } from './features/monitoring/monitoring.component';
 
 
@@ -14,7 +13,6 @@ import { MonitoringComponent } from './features/monitoring/monitoring.component'
   declarations: [
     AppComponent,
     HomeComponent,
-    AlertComponent,
     MonitoringComponent
   ],
   imports: [

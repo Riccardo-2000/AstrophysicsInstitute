@@ -1,51 +1,69 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { CelestialBody } from '../interfaces/celestialBody';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private data: any[] = [
+  private data: CelestialBody[] = [
     {
-      type:"U.F.O",
-      albedo:"",
-      datetime:"2023-11-03T11:30",
-      declination:3,
-      distance:"",
-      harvard_class:"",
-      hour_angle:3,
-      mass:"",
-      orbital_inclination:"",
-      radius: "",
-      solar_system:"",
-      temperature:""}
+      type: "U.F.O",
+      albedo: null,
+      datetime: new Date("2023-11-03T11:30"),
+      declination: 3,
+      distance: null,
+      harvard_class: null,
+      hour_angle: 3,
+      mass: null,
+      orbital_inclination: null,
+      radius: null,
+      temperature: null,
+      solar_system: false,
+      idUser:null
+    },
+    {
+      type: "pianeta",
+      albedo: null,
+      datetime: new Date("2023-01-03T11:30"),
+      declination: 7,
+      distance: null,
+      harvard_class: null,
+      hour_angle: 7,
+      mass: null,
+      orbital_inclination: null,
+      radius: null,
+      temperature: null,
+      solar_system: false,
+      idUser:1
+    }
   ]; // Simula un array di oggetti registrati
-  
+
   private dataSubject = new BehaviorSubject<any[]>(this.data);
   data$ = this.dataSubject.asObservable();
 
   options = {
-    'pianeta': [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1] ,
-    'stella': [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1] ,
-    'asteroide': [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1] ,
-    'meteora': [1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0,] ,
-    'U.F.O': [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0] 
+    'pianeta': {"url": "", "description": "In astronomia, corpo celeste che orbita attorno a una stella e non è in grado di produrre energia tramite fusione nucleare, la cui massa è sufficientemente grande da conferirgli forma sferoidale e la cui fascia orbitale è priva di eventuali corpi di dimensioni confrontabili o superiori; per gli antichi, qualsiasi corpo celeste da essi conosciuto che non occupasse una posizione fissa sulla sfera celeste", "value": [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1]},
+    'stella': {"url": "", "description": "Una stella è un corpo celeste che brilla di luce visibile, propria. Si tratta di uno sferoide di plasma che attraverso processi di fusione nucleare nel proprio nucleo genera energia, irradiata nello spazio sotto forma di radiazione elettromagnetica (luminosità), flusso di particelle elementari (vento stellare) e neutrini.[2] Buona parte degli elementi chimici più pesanti dell'idrogeno e dell'elio vengono sintetizzati nei nuclei delle stelle tramite il processo di nucleosintesi.", "value":[1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1]},
+    'asteroide': {"url": "", "description": "Un asteroide è un piccolo corpo celeste simile per composizione ad un pianeta terrestre, generalmente privo di una forma sferica, di solito con un diametro inferiore al chilometro, anche se non mancano corpi di grandi dimensioni, giacché tecnicamente anche i corpi particolarmente massicci recentemente scoperti nel Sistema solare esterno sono da considerarsi tali.", "value":[1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1]},
+    'meteora': {"url": "", "description": "In astronomia, il fenomeno luminoso dovuto a un meteoroide che attraversa l'atmosfera; stella cadente, filante.", "value":[1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0,]},
+    'U.F.O': {"url": "", "description": "Un oggetto volante non identificato (OVNI) noto anche con gli acronimi inglesi UFO (Unidentified Flying Object o Unknown Flying Object) e UAP (Unidentified Aerial Phenomenon)[1] indica genericamente ogni fenomeno aereo le cui cause non possano facilmente o immediatamente essere individuate da un osservatore.", "value":[1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]}
   }
 
-  getOptions(){
+  getOptions() {
     return this.options
   }
 
 
-  addData(item: any) {
+  addData(item: CelestialBody) {
     this.data.push(item);
     //this.dataSubject.next(this.data);
   }
 
   updateData(updatedItem: any) {
-    const index = this.data.findIndex((item, i) => {return i === updatedItem.id});
-    
+    const index = this.data.findIndex((item, i) => { return i === updatedItem.id });
+
     if (index >= 0) {
       console.log(this.data[index])
       console.log(updatedItem)
@@ -55,10 +73,7 @@ export class DataService {
   }
 
   deleteData(id: number) {
-    console.log(id)
-    this.data = this.data.filter((item,i) =>{ 
-      console.log(i,id)
-      return i !== id});
-     this.dataSubject.next(this.data);
+    this.data = this.data.filter((item, i) => { return i !== id });
+    this.dataSubject.next(this.data);
   }
 }
