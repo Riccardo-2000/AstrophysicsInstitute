@@ -10,6 +10,7 @@ export class AuthService {
   setIdAuthenticator(){
     localStorage.setItem('idUser', '1')
   }
+  
   getIdAuthenticator(){
     return Number(localStorage.getItem('idUser'))
   }

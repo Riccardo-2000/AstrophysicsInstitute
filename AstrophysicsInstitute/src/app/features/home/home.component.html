@@ -1,12 +1,22 @@
 <div class="container w-75 mw-100 h-100 bg-white overflow-auto">
     <div class="textContainer bg-white position-relative" [ngClass]="optionSelected=='' ? 'initial' : 'end'">
         <h4 class="text mb-3 position-relative">SELEZIONA UN CORPO CELESTE</h4>
-        <select [(ngModel)]="optionSelected" class="form-control p-2">
-            <option selected disabled [value]="">Seleziona il corpo celeste</option>
-            <option *ngFor="let option of options| keyvalue" [value]="option.key" class="p-5">
-                  {{ option.key }}
-            </option>
-        </select>
+        
+        <div class="cs-point selectContainer">
+            <div class="form-control" (click)="toggleOptionsList()">{{ optionSelected ? optionSelected : 'Seleziona il
+                corpo celeste' }}</div>
+            <ul class="border shadow-lg options_select ps-0" *ngIf="showOptions">
+                <li class="py-2 ps-2 d-flex gap-3 align-items-center " *ngFor="let option of options | keyvalue" (click)="selectOption(option.key)">
+                    <img [src]="option.value.url"
+                      width="50px" height="50px" alt="img"> 
+                      <div>
+                        <p class="mb-0 text-capitalize">{{ option.key }}</p>
+                        <p class="mb-0">{{ option.value.description }}</p>
+                      </div>
+                        
+                </li>
+            </ul>
+        </div>
     </div>
     <form *ngIf="optionSelected" [formGroup]="feedform" (onchange)="resetForm()">
         <div class="form-row">
@@ -15,19 +25,19 @@
                 <div [ngClass]="(submitted && checkFormError()['datetime'].errors!=undefined) ? 'error' : ''"
                     class="underline">
                 </div>
-                <label for="datetime">datetime (UTC)</label>
+                <label for="datetime"><span class="text-danger">*</span> datetime (UTC)</label>
             </div>
             <div *ngIf="options[optionSelected].value[1]" class="input-data">
                 <input class="form-control" formControlName="hour_angle" type="number" name="hour_angle">
                 <div [ngClass]="(submitted && checkFormError()['hour_angle'].errors) ? 'error' : ''" class="underline">
                 </div>
-                <label for="hour_angle">angolo orario (h)</label>
+                <label for="hour_angle"><span class="text-danger">*</span>angolo orario (h)</label>
             </div>
             <div *ngIf="options[optionSelected].value[2]" class="input-data">
                 <input class="form-control" formControlName="declination" type="number" name="declination">
                 <div [ngClass]="(submitted && checkFormError()['declination'].errors) ? 'error' : ''" class="underline">
                 </div>
-                <label for="declination">declinazione (°)</label>
+                <label for="declination"><span class="text-danger">*</span>declinazione (°)</label>
             </div>
         </div>
         <div class="form-row">

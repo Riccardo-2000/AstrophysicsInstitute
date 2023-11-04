@@ -140,7 +140,7 @@ form .form-row .input-data {
   transition: all 0.3s;
   height: 500px;
   max-height: 100%;
-  padding-top: 150px;
+  padding-top: 15%;
 }
 
 .textContainer.end {
@@ -169,4 +169,27 @@ form .form-row .input-data {
   .submit-btn .input-data {
     width: 40% !important;
   }
+}
+
+
+/* select */
+.cs-point:hover {
+  cursor: pointer;
+}
+
+.options_select {
+  z-index: 2000;
+  position: relative;
+  background: white;
+}
+
+.options_select li {
+  list-style: none;
+  font-size: 15px;
+}
+
+.options_select li:hover {
+  background: linear-gradient(115deg, #56d8e447 10%, #9f01ea47 90%);
+  color: #9f01ea87;
+  font-weight: bold;
 }

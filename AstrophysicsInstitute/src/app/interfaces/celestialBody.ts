@@ -11,5 +11,5 @@ export interface CelestialBody {
     albedo ?: number,
     distance  ?: number,
     solar_system ?: boolean,
-    idUser?: number
+    idUser: number
 }

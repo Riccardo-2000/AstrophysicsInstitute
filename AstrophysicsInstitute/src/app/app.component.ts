@@ -13,6 +13,7 @@ export class AppComponent {
     this.checkAuth()
   }
 
+  //check id sesstion storage
   checkAuth(){
     let id = localStorage.getItem('idUser')!=null
     if(!id) {

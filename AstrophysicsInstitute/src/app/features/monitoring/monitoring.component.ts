@@ -16,21 +16,19 @@ export class MonitoringComponent implements OnInit {
 
   constructor(private dataService: DataService, private authService:AuthService) {}
 
+  //check ids match 
   checkid(id:number){
-    console.log(id , this.authService.getIdAuthenticator())
-    return id === this.authService.getIdAuthenticator()
+    return Number(id) === this.authService.getIdAuthenticator()
   }
 
 
   selectData(item: any, i:number) {
     this.selectedData = { "id": i , "item" : {...item} };
-    console.log(this.selectedData)
   }
 
   updateData() {
-    console.log(this.selectedData.item)
     if (this.selectedData.item.distance > 130 && this.selectedData.item.solar_system===true) {
-      //stampa errore
+      //throw error
     }else{
       this.dataService.updateData(this.selectedData);
       this.selectedData = null;
@@ -48,7 +46,6 @@ export class MonitoringComponent implements OnInit {
     });
 
     this.options = this.dataService.getOptions()
-    console.log(this.options)
   }
 
 }
